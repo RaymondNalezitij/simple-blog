@@ -6,14 +6,14 @@ use App\Models\User;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Hash;
 
-class MakeUser extends Command
+class firstRun extends Command
 {
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'make:user {name} {email} {password}';
+    protected $signature = 'app:first-run';
 
     /**
      * The console command description.
@@ -39,12 +39,14 @@ class MakeUser extends Command
      */
     public function handle()
     {
-        $user = new User([
-            'name' => $this->argument('name'),
-            'email' => $this->argument('email'),
-            'password' => Hash::make($this->argument('password'))
+        $adminUser = new User([
+            'name' => 'admin',
+            'email' => 'admin@host.com',
+            'password' => Hash::make('admin')
         ]);
-        $user->save();
+        $adminUser->user_type = 'Admin';
+        $adminUser->save();
+
         return 0;
     }
 }

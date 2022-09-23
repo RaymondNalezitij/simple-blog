@@ -19,7 +19,5 @@ Route::middleware(['auth:sanctum'])->get('/user', function (Request $request) {
 });
 
 Route::post('/login', [App\Http\Controllers\Auth\AuthenticatedSessionController::class, 'store']);
-//Route::middleware(['auth'])->post('/fucking', function (Request $request) {
-//    return "what?!";
-//});
-//Route::middleware(['auth:sanctum', 'isAdmin'])->get('/admin', [App\Http\Controllers\AdminController::class, 'index']);
+
+Route::middleware(['auth:sanctum', 'isAdmin'])->get('/admin', [App\Http\Controllers\AdminController::class, 'index']);
