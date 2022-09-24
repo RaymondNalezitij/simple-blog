@@ -25,3 +25,20 @@ Route::middleware(['auth:sanctum', 'isAdmin'])->get('/admin/users', [App\Http\Co
 Route::middleware(['auth:sanctum', 'isAdmin'])->post('/admin/users/', [App\Http\Controllers\UsersController::class, 'create']);
 Route::middleware(['auth:sanctum', 'isAdmin'])->put('/admin/users/{id}', [App\Http\Controllers\UsersController::class, 'update']);
 Route::middleware(['auth:sanctum', 'isAdmin'])->delete('/admin/users/{id}', [App\Http\Controllers\UsersController::class, 'destroy']);
+
+Route::get('/', [App\Http\Controllers\ArticleController::class, 'index']);
+Route::get('/articles', [App\Http\Controllers\ArticleController::class, 'index']);
+Route::get('/articles/{id}', [App\Http\Controllers\ArticleController::class, 'show']);
+Route::middleware(['auth:sanctum'])->post('/articles', [App\Http\Controllers\ArticleController::class, 'create']);
+Route::middleware(['auth:sanctum'])->put('/articles/{id}', [App\Http\Controllers\ArticleController::class, 'update']);
+Route::middleware(['auth:sanctum'])->delete('/articles/{id}', [App\Http\Controllers\ArticleController::class, 'destroy']);
+
+Route::post('/articles/{id}/comments', [App\Http\Controllers\CommentController::class, 'create']);
+Route::middleware(['auth:sanctum', 'isAdmin'])->get('/admin/comments', [App\Http\Controllers\CommentController::class, 'index']);
+Route::middleware(['auth:sanctum', 'isAdmin'])->put('/admin/comments/{id}', [App\Http\Controllers\CommentController::class, 'update']);
+Route::middleware(['auth:sanctum', 'isAdmin'])->get('/admin/comments/{id}', [App\Http\Controllers\CommentController::class, 'show']);
+Route::middleware(['auth:sanctum', 'isAdmin'])->delete('/admin/comments/{id}', [App\Http\Controllers\CommentController::class, 'destroy']);
+
+Route::middleware(['auth:sanctum', 'isAdmin'])->get('/admin/category', [App\Http\Controllers\CategoryController::class, 'index']);
+Route::middleware(['auth:sanctum', 'isAdmin'])->put('/admin/category/{id}', [App\Http\Controllers\CategoryController::class, 'update']);
+Route::middleware(['auth:sanctum', 'isAdmin'])->delete('/admin/category/{id}', [App\Http\Controllers\CategoryController::class, 'destroy']);

@@ -29,9 +29,11 @@ class UsersController extends Controller
             'user_type' => $request->get('user_type')
         ]);
         $user->save();
+
+        return response()->noContent();
     }
 
-    public function update(Request $request, $id)
+    public function update(Request $request, int $id)
     {
         $user = User::findOrFail($id);
 
@@ -44,12 +46,23 @@ class UsersController extends Controller
         $user->email = $request->get('email');
         $user->user_type = $request->get('user_type');
         $user->update();
+
+        return response()->noContent();
     }
 
-    public function destroy($id)
+    public function destroy(int $id)
     {
         $user = User::findOrFail($id);
 
+        foreach ($user->articles as $article) {
+            foreach ($article->comments as $comment) {
+                $comment->delete();
+            }
+            $article->delete();
+        }
+
         $user->delete();
+
+        return response()->noContent();
     }
 }

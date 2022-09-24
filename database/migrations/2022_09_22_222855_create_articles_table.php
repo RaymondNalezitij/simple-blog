@@ -17,7 +17,6 @@ class CreateArticlesTable extends Migration
             $table->id();
             $table->integer('category_id');
             $table->unsignedBigInteger('user_id');
-            $table->string('author');
             $table->text('title');
             $table->text('post');
             $table->timestamps();

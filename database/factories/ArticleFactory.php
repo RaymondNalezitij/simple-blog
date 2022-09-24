@@ -19,7 +19,6 @@ class ArticleFactory extends Factory
         $user = User::factory()->create();
         return [
             'user_id' => $user->id,
-            'author' => $user->name,
             'title' => $this->faker->sentence,
             'post' => $this->faker->sentence,
             'category_id' => rand(1, Category::count())
