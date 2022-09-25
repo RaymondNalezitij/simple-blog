@@ -37,23 +37,7 @@ export default {
     },
 
     async created() {
-        const payload = {
-            headers: {
-                'Content-Type': 'application/json',
-                'Accept': 'application/json',
-                'Access-Control-Allow-Origin': '*',
-            }
-        }
-
-        try {
-            const res = await axios.get('http://127.0.0.1:8000/api/articles/'
-             + this.$route.params.id,
-              payload);
-            this.article = res.data.data;
-
-        } catch (error) {
-            console.log(error);
-        }
+        this.fetchPost();
     },
 
     methods: {
@@ -78,7 +62,28 @@ export default {
                 console.log(error);
             }
 
+            this.fetchPost();
             
+        },
+
+        async fetchPost() {
+                    const payload = {
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json',
+                'Access-Control-Allow-Origin': '*',
+            }
+        }
+
+        try {
+            const res = await axios.get('http://127.0.0.1:8000/api/articles/'
+             + this.$route.params.id,
+              payload);
+            this.article = res.data.data;
+
+        } catch (error) {
+            console.log(error);
+        }
         }
     },
 }
