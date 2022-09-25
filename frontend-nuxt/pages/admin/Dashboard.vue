@@ -33,7 +33,7 @@ export default {
                 'Content-Type': 'application/json',
                 'Accept': 'application/json',
                 'Access-Control-Allow-Origin': '*',
-                'Authorization': this.$store.state.auth.auth.token,
+                'Authorization': 'Bearer ' + this.$store.state.auth.auth.token,
             }
         }
 
