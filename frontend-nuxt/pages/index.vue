@@ -1,5 +1,9 @@
 <template>
+<div>
+  <NavBar/>
+  {{ this.$store.state.auth }}
   <Blog/>
+</div>
 </template>
 
 <script>
