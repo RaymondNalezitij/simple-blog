@@ -7,7 +7,7 @@ Built with PHP, nodejs, composer, Laravel 8 and Nuxt.js 2.
 git clone https://github.com/aldis-sarja/simple-blog.git
 cd simple-blog/backend-laravel
 composer install
-cd ../../frontend-nuxt
+cd ../frontend-nuxt
 npm install
 npm run build
 ```
