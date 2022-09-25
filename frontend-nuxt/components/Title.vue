@@ -1,11 +1,11 @@
 <template>
-    <div class="title">
+    <div>
         <nuxt-link :to="'/article/' + article.id">
         {{ article.title }}
-        {{ article.author }}
-        {{ article.category }}
-        {{ article.date }}
         </nuxt-link>
+        &bull; {{ article.category }}
+        <div class="section">{{ article.author }} &bull;{{ article.date }}</div>
+        
     </div>
 </template>
 
@@ -15,3 +15,9 @@ export default {
     props: ['article']
 };
 </script>
+
+<style>
+.section {
+    padding: 10px 5px;
+}
+</style>

@@ -1,6 +1,6 @@
 <template>
     <div>
-        <Title v-for="article in articles" v-bind:key="article"
+        <Title  class="article" v-for="article in articles" v-bind:key="article"
         :article="article" />
     </div>
 </template>
@@ -41,13 +41,8 @@ export default {
 </script>
 
 <style scoped>
-.articles {
-    display: flex;
-    flex-flow: row wrap;
-}
-
 .article {
     box-sizing: border-box;
-    width: 500px;
+    padding: 10px 20px;
 }
 </style>

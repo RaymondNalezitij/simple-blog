@@ -6,6 +6,15 @@
         <div>{{ this.article.date }}</div>
 
         <div>
+            <form @submit.prevent="onSubmit">
+            <input type="text" v-model="user_name" placeholder="User Name">
+            <input type="text" v-model="user_comment" placeholder="Comment">
+            <input type="submit" value="Add Comment">
+            </form>
+
+        </div>
+
+        <div>
         <Comment v-for="comment in this.article.comments" v-bind:key="comment"
         :comment="comment" />
         </div>
@@ -22,7 +31,7 @@ export default {
     name: 'Article',
     data() {
         return {
-            article: []
+            article: [],
         }
 
     },
@@ -37,11 +46,39 @@ export default {
         }
 
         try {
-            const res = await axios.get('http://127.0.0.1:8000/api/articles/' + this.$route.params.id, payload);
+            const res = await axios.get('http://127.0.0.1:8000/api/articles/'
+             + this.$route.params.id,
+              payload);
             this.article = res.data.data;
 
         } catch (error) {
-            console.log("SHIT:", error);
+            console.log(error);
+        }
+    },
+
+    methods: {
+        async onSubmit() {
+
+            const payload = {
+                'user_name': this.user_name,
+                'comment': this.user_comment,
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json',
+                    'Access-Control-Allow-Origin': '*',
+                }
+            }
+
+            try {
+            await axios.post('http://127.0.0.1:8000/api/articles/'
+             + this.$route.params.id
+             + '/comments',
+              payload);
+            } catch (error) {
+                console.log(error);
+            }
+
+            
         }
     },
 }
