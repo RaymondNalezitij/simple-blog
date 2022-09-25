@@ -30,7 +30,7 @@ The `app:first-run` command will make first admin user (with password 'admin') a
 You can add aditional admin users with command `php artisan add:admin <user_name> <email> <password>`
 and regular users with `php artisan add:user <user_name> <email> <password>`.
 You can easily populate database with fake users and fake posts - `php artisan bd:seed`.
-All fake users password is 'password'.
+All fake user's password is 'password'.
 
 To start backend server enter the command `php artisan serve`.
 
