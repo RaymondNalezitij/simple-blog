@@ -2,9 +2,6 @@
   <div>
     <NavBar/>
     {{ this.$store.state.auth }}
-    <!-- <nuxt-link :to="'/admin/dashboard'">
-        Admin Dashboard
-    </nuxt-link> -->
 
     <form @submit.prevent="onSubmit">
       <div v-if="this.validationErrors">

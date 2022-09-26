@@ -1,9 +1,11 @@
 <template>
     <div>
+        <div class="headline">
         <nuxt-link :to="'/article/' + article.id">
         {{ article.title }}
         </nuxt-link>
         &bull; {{ article.category }}
+        </div>
         <div class="section">{{ article.author }} &bull;{{ article.date }}</div>
         
     </div>
@@ -16,8 +18,15 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
+.headline {
+    display: flex;
+    flex-direction: row;
+    padding: 5px;
+}
+
 .section {
-    padding: 10px 5px;
+    justify-content: end;
+    padding: 5px;
 }
 </style>

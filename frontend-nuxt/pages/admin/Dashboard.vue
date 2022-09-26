@@ -1,7 +1,6 @@
 <template>
     <div>
-        Hello: {{ auth }}
-        Hello: {{ auth.auth.token }}
+        <NavBar/>
     </div>
 </template>
 
