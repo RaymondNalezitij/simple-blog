@@ -1,19 +1,22 @@
 <template>
     <div>
         <NavBar/>
-        <h2>{{ this.article.title }}</h2>
-        <div>{{ this.article.author}}</div>
-        <div>{{ this.article.post }}</div>
-        <div>&bull; {{ this.article.date }}</div>
-
-        <div>
-            <form @submit.prevent="onSubmit">
-            <input type="text" v-model="user_name" placeholder="User Name" required>
-            <input type="text" v-model="user_comment" placeholder="Comment" required>
-            <input type="submit" value="Add Comment">
-            </form>
-
+        <h2 class="title">{{ this.article.title }}</h2>
+        <div class="author-section">
+        <div class="author">{{ this.article.author}}</div>
+        <div>&ensp;&bull; {{ this.article.date }}</div>
         </div>
+        <div class="article">{{ this.article.post }}</div>
+
+        
+        <form @submit.prevent="onSubmit">
+            <div class="add-comment">
+                <input class="user-input" type="text" v-model="user_name" placeholder="User Name" required>
+                <textarea class="comment-input" v-model="user_comment" placeholder="Comment" required></textarea>
+                <input class="button" type="submit" value="Add Comment">
+            </div>
+        </form>
+
 
         <div>
         <Comment v-for="comment in this.article.comments" v-bind:key="comment"
@@ -104,3 +107,54 @@ export default {
     },
 }
 </script>
+
+<style scoped>
+.title {
+    justify-items: center;
+}
+
+.author-section {
+    display: flex;
+    flex-direction: row;
+    padding: 2px 20px;
+}
+
+.author:hover {
+  text-transform: uppercase;
+  color: crimson;
+}
+
+.article {
+    padding: 20px 0;
+}
+
+.add-comment {
+    display: flex;
+    flex-direction: column;
+}
+
+.user-input {
+    border-radius: 10px;
+    padding: 5px;
+    padding-bottom: 3px;
+    margin-top: 10px;
+    width: 150px;
+}
+
+.comment-input {
+    border-radius: 10px;
+    padding: 5px;
+    margin-top: 10px;
+    width: 330px;
+    height: 90px;
+}
+
+
+.button {
+    border-radius: 10px;
+    padding: 5px;
+    margin-top: 10px;
+    width: 100px;
+    cursor: pointer;
+}
+</style>

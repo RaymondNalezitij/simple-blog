@@ -1,24 +1,25 @@
 <template>
   <div>
     <NavBar/>
-    {{ this.$store.state.auth }}
-
+    
     <form @submit.prevent="onSubmit">
+      <div class="login-form">
       <div v-if="this.validationErrors">
         <div class="error-messages" v-for="(message, error) in this.validationErrors">
-          {{ error }} : {{ message }}
+          {{ message }}
         </div>
       </div>
-      <div>
+      <div class="input-section">
         <v-label>Email</v-label>
-        <input type="text" v-model="user_email" placeholder="User Email" required>
+        <input class="input" type="email" v-model="user_email" placeholder="User Email" required>
       </div>
-      <div>
+      <div  class="input-section">
         <v-label>Password</v-label>
-        <input type="text" v-model="user_password" placeholder="User Password" required> 
+        <input class="input" type="password" v-model="user_password" placeholder="User Password" required> 
       </div>
-      <div>
-        <input type="submit" value="Login">
+      
+        <input class="button" type="submit" value="Login">
+      
       </div>
     </form>
   </div>
@@ -48,8 +49,8 @@ export default {
       try {
         const response = await axios.post("http://127.0.0.1:8000/api/login", payload);
         this.$store.commit('auth/set', response.data.data);
-        console.log("Loging OK!");
-        console.log(this.$store.state.auth);
+        this.user_email = "";
+        this.user_password = "";
         
       } catch (error) {
           console.log("LOGIN ERROR: ", error.response.data.errors);
@@ -61,3 +62,40 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+.login-form {
+  display: flex;
+  flex-direction: column;
+  padding-left: 20px;
+  padding-top: 10;
+  width: 250px;
+}
+
+.input-section {
+  display: flex;
+  flex-direction: row;
+  padding-top: 10px;
+  justify-content: space-between;
+}
+
+.input {
+  border-radius: 10px;
+  padding: 5px;
+  width: 160px;
+}
+
+.button {
+  border-radius: 10px;
+  padding: 5px;
+  cursor: pointer;
+  justify-content: end;
+  margin-top: 10px;
+  width: 50px;
+  cursor: pointer;
+}
+
+.error-messages {
+  color: red;
+}
+</style>

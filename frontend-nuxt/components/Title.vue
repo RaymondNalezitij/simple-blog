@@ -4,9 +4,14 @@
         <nuxt-link :to="'/article/' + article.id">
         {{ article.title }}
         </nuxt-link>
-        &bull; {{ article.category }}
+        &ensp;&bull; {{ article.category }}
         </div>
-        <div class="section">{{ article.author }} &bull;{{ article.date }}</div>
+        <div class="author-section">
+            <div class="author">
+                {{ article.author }}
+            </div>
+                &ensp;&bull;{{ article.date }}
+        </div>
         
     </div>
 </template>
@@ -25,8 +30,14 @@ export default {
     padding: 5px;
 }
 
-.section {
+.author-section {
+    display: flex;
+    flex-direction: row;
     justify-content: end;
     padding: 5px;
+}
+
+.author:hover {
+  color: lightseagreen;
 }
 </style>

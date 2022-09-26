@@ -1,5 +1,20 @@
 <template>
 <div class="main-section">
+
+    <div v-if="this.validationErrors">
+        <div class="error-messages" v-for="(message, error) in this.validationErrors">
+          {{ message }}
+        </div>
+      </div>
+    
+    <form class="add-post" v-if="this.$store.state.auth.auth" @submit.prevent="onSubmit">
+        <input class="input" type="text" v-model="new_title" placeholder="Title" required>
+        <textarea class="input" v-model="new_post" placeholder="Post" required></textarea>
+            <input class="button" type="submit" value="Add Post">
+    </form>
+
+    <div class="sub-section">
+
     <div class="article">
         <Title  class="article" v-for="article in articlesFiltered" v-bind:key="article"
         :article="article" />
@@ -13,6 +28,7 @@
             </label>
         </li>
     </ul>
+    </div>
 
 </div>
 </template>
@@ -31,6 +47,7 @@ export default {
             categories: [],
             categoryFilter: [],
             articlesFiltered: [],
+            validationErrors: null,
         }
 
     },
@@ -52,7 +69,7 @@ export default {
             }
 
         } catch (error) {
-            console.log("TERRIBLE ERROR:", error);
+            console.log(error);
         }
 
         try {
@@ -60,7 +77,7 @@ export default {
             this.categories = res.data.data;
 
         } catch (error) {
-            console.log("TERRIBLE ERROR:", error);
+            console.log(error);
         }
 
         this.filterArticles()
@@ -74,7 +91,7 @@ export default {
         },
 
         onCategoryChange(event) {
-            console.log(event);
+
             if (event.target.checked) {
                 this.categoryFilter.push(parseInt(event.target.id));
             } else {
@@ -92,9 +109,38 @@ export default {
             }
 
             this.articlesFiltered = this.articles.filter((article) => {
-                console.log("FILTERING", article.category_id);
                 return this.categoryFilter.includes(article.category_id);
             });
+        },
+
+        async onSubmit() {
+
+            this.validationErrors = null;
+
+            const payload = {
+                'title': this.new_title,
+                'post': this.new_post,
+                'category_id': 1,
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json',
+                    'Access-Control-Allow-Origin': '*',
+                    'Authorization': 'Bearer ' + this.$store.state.auth.auth.token,
+                }
+            }
+
+            console.log("BEFORE POST");
+            try {
+                await axios.post('http://127.0.0.1:8000/api/articles', payload);
+                console.log("AFTER POST");
+            } catch (error) {
+                if (error.response) {
+                    this.validationErrors = error.response.data.errors;
+                    return;
+                }
+            }
+            this.new_title = "";
+            this.new_post = "";
         }
     }
 
@@ -109,6 +155,11 @@ export default {
 
 .main-section {
     display: flex;
+    flex-direction: column;
+}
+
+.sub-section {
+    display: flex;
     flex-direction: row;
     justify-content: space-between;
 }
@@ -117,5 +168,27 @@ export default {
     display: flex;
     flex-direction: column;
     padding: 10px;
+}
+
+.add-post {
+    display: flex;
+    flex-direction: column;
+}
+
+.input {
+    border-radius: 10px;
+    width: 300px;
+    margin-top: 10px;
+    margin-left: 20px;
+    padding: 5px;
+}
+
+.button {
+    border-radius: 10px;
+    width: 70px;
+    margin-top: 10px;
+    margin-left: 20px;
+    padding: 5px;
+    cursor: pointer;
 }
 </style>
