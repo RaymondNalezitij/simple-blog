@@ -7,11 +7,16 @@
             <nuxt-link class="menu-item" :to="'/login'">Login</nuxt-link>
         </div>
 
-    <div class="side-links" v-if="this.$store.state.auth.auth">
-    <nuxt-link class="menu-item" :to="'/admin/dashboard'" v-if="this.$store.state.auth.auth.type == 'Admin'">
-        Admin Dashboard
-    </nuxt-link>
-    <div class="menu-item" :to="'/'" v-if="this.$store.state.auth.auth">
+        <div class="side-links" v-if="this.$store.state.auth.auth">
+            <div class="admin-items" v-if="this.$store.state.auth.auth.type == 'Admin'">
+                <nuxt-link class="menu-item" :to="'/admin/UserList'" >
+                    Users
+                </nuxt-link>
+                <nuxt-link class="menu-item" :to="'/admin/CategoryList'" >
+                    Categories
+                </nuxt-link>
+            </div>
+        <div class="menu-item" v-if="this.$store.state.auth.auth">
         {{ this.$store.state.auth.auth.name }}
     </div>
     </div>
@@ -38,5 +43,10 @@
 
 .menu-item {
     padding: 0 20px;
+}
+
+.admin-items {
+    display: flex;
+    flex-direction: row;
 }
 </style>

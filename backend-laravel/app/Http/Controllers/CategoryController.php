@@ -13,7 +13,7 @@ class CategoryController extends Controller
         return CategoryResource::collection(Category::get());
     }
 
-    public function create(Request $request, int $article_id)
+    public function create(Request $request)
     {
         $this->validate($request, [
             'name' => 'required',

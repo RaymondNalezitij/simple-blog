@@ -1,17 +1,30 @@
 <template>
 <div class="main-section">
 
-    <div v-if="this.validationErrors">
+    <div v-if="validationErrors">
         <div class="error-messages" v-for="(message, error) in this.validationErrors">
           {{ message }}
         </div>
-      </div>
-    
-    <form class="add-post" v-if="this.$store.state.auth.auth" @submit.prevent="onSubmit">
+    </div>
+
+    <form ref="formName" class="add-post" v-if="this.$store.state.auth.auth" @submit.prevent="onSubmit">
+        <div class="add-post-section">
+            <div class="input-section">
         <input class="input" type="text" v-model="new_title" placeholder="Title" required>
         <textarea class="input" v-model="new_post" placeholder="Post" required></textarea>
             <input class="button" type="submit" value="Add Post">
+            </div>
+
+    <select class="category-option" name="category" v-model="selected" required>
+        <option v-for="category in categories" v-bind:value="category.id">
+            {{ category.name }}
+        </option>
+    </select>
+    </div>
     </form>
+    
+
+
 
     <div class="sub-section">
 
@@ -120,7 +133,7 @@ export default {
             const payload = {
                 'title': this.new_title,
                 'post': this.new_post,
-                'category_id': 1,
+                'category_id': this.selected,
                 headers: {
                     'Content-Type': 'application/json',
                     'Accept': 'application/json',
@@ -129,18 +142,23 @@ export default {
                 }
             }
 
-            console.log("BEFORE POST");
             try {
                 await axios.post('http://127.0.0.1:8000/api/articles', payload);
-                console.log("AFTER POST");
+
+                this.$refs.formName.reset();
+
             } catch (error) {
+
                 if (error.response) {
-                    this.validationErrors = error.response.data.errors;
+
+                    if(error.response.data.message) {
+                        this.validationErrors = [error.response.data.message];
+                    } else if (error.response.data.errors) {
+                        this.validationErrors = error.response.data.errors;
+                    }
                     return;
                 }
             }
-            this.new_title = "";
-            this.new_post = "";
         }
     }
 
@@ -190,5 +208,30 @@ export default {
     margin-left: 20px;
     padding: 5px;
     cursor: pointer;
+}
+
+.error-messages {
+  color: red;
+  margin-top: 10px;
+  margin-left: 25px;
+}
+
+.add-post-section {
+    display: flex;
+    flex-direction: row;
+}
+
+.input-section
+{
+    display: flex;
+    flex-direction: column;
+}
+
+.category-option {
+    width: fit-content;
+    height: fit-content;
+    padding: 2px;
+    margin-top: 10px;
+    margin-left: 10px;
 }
 </style>

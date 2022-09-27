@@ -35,5 +35,6 @@ Route::middleware(['cors', 'auth:sanctum', 'isAdmin'])->get('/admin/comments/{id
 Route::middleware(['cors', 'auth:sanctum', 'isAdmin'])->delete('/admin/comments/{id}', [App\Http\Controllers\CommentController::class, 'destroy']);
 
 Route::middleware(['cors'])->get('/categories', [App\Http\Controllers\CategoryController::class, 'index']);
+Route::middleware(['cors', 'auth:sanctum', 'isAdmin'])->post('/admin/categories/', [App\Http\Controllers\CategoryController::class, 'create']);
 Route::middleware(['cors', 'auth:sanctum', 'isAdmin'])->put('/admin/categories/{id}', [App\Http\Controllers\CategoryController::class, 'update']);
-Route::middleware(['cors', 'auth:sanctum', 'isAdmin'])->delete('/admin/categoies/{id}', [App\Http\Controllers\CategoryController::class, 'destroy']);
+Route::middleware(['cors', 'auth:sanctum', 'isAdmin'])->delete('/admin/categories/{id}', [App\Http\Controllers\CategoryController::class, 'destroy']);

@@ -2,7 +2,7 @@
   <div>
     <NavBar/>
     
-    <form @submit.prevent="onSubmit">
+    <form ref="formName" @submit.prevent="onSubmit">
       <div class="login-form">
       <div v-if="this.validationErrors">
         <div class="error-messages" v-for="(message, error) in this.validationErrors">
@@ -49,11 +49,10 @@ export default {
       try {
         const response = await axios.post("http://127.0.0.1:8000/api/login", payload);
         this.$store.commit('auth/set', response.data.data);
-        this.user_email = "";
-        this.user_password = "";
+        this.$refs.formName.reset();
         
       } catch (error) {
-          console.log("LOGIN ERROR: ", error.response.data.errors);
+
           if (error.response) {
             this.validationErrors = error.response.data.errors;
           }

@@ -1,6 +1,7 @@
 <template>
     <div>
         <NavBar/>
+        <div class="main-section">
         <h2 class="title">{{ this.article.title }}</h2>
         <div class="author-section">
         <div class="author">{{ this.article.author}}</div>
@@ -9,7 +10,7 @@
         <div class="article">{{ this.article.post }}</div>
 
         
-        <form @submit.prevent="onSubmit">
+        <form ref="formName" @submit.prevent="onSubmit">
             <div class="add-comment">
                 <input class="user-input" type="text" v-model="user_name" placeholder="User Name" required>
                 <textarea class="comment-input" v-model="user_comment" placeholder="Comment" required></textarea>
@@ -23,6 +24,7 @@
         :comment="comment" />
         </div>
 
+    </div>
     </div>
 </template>
 
@@ -67,8 +69,7 @@ export default {
                 return;
             }
 
-            this.user_name = "";
-            this.user_comment = "";
+            this.$refs.formName.reset();
 
             this.fetchPost();
             
@@ -76,12 +77,12 @@ export default {
 
         async fetchPost() {
                 const payload = {
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Accept': 'application/json',
-                    'Access-Control-Allow-Origin': '*',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json',
+                        'Access-Control-Allow-Origin': '*',
+                    }
                 }
-            }
 
             try {
                 const res = await axios.get('http://127.0.0.1:8000/api/articles/'
@@ -109,6 +110,10 @@ export default {
 </script>
 
 <style scoped>
+.main-section {
+        margin-left: 20px;
+}
+
 .title {
     justify-items: center;
 }
