@@ -46,7 +46,7 @@ export default {
       };
 
       try {
-        const response = await axios.post("http://127.0.0.1:8000/api/login", payload);
+        const response = await axios.post(this.$config.BACKEND_URI + "/login", payload);
         this.$store.commit('auth/set', response.data.data);
         this.$refs.formName.reset();
         

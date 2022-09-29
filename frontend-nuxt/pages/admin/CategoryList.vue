@@ -1,29 +1,35 @@
 <template>
   <div>
     <NavBar />
-
+    <div class="main-section">
     <form ref="formName" @submit.prevent="addNew">
       <div class="add-category">
         <input
           class="name-input"
           type="text"
           v-model="category_name"
-          placeholder="Category"
+          placeholder="New Category"
           required
         />
         <input class="button" type="submit" value="Add Category" />
       </div>
     </form>
 
+
     <form
       v-for="category in categories"
       v-bind:key="category"
       :id="category.id"
     >
-      <input type="button" value="Remove" v-on:click="removeCategory" />
-      <input type="text" name="category" :value="category.name" />
-      <input type="button" value="Change" v-on:click="changeCategory" />
+
+    <div class="category-section">
+      <input class="button" type="button" value="Remove" v-on:click="removeCategory" />
+      <input class="name-input" type="text" name="category" :value="category.name" />
+      <input class="button" type="button" value="Change" v-on:click="changeCategory" />
+      </div>
     </form>
+    
+    </div>
   </div>
 </template>
 
@@ -90,8 +96,6 @@ export default {
 
     async changeCategory(event) {
       const form = event.target.parentElement;
-      // console.log("FROM CHANGE:", form.category.value);
-      // console.log("FROM CHANGE:", event.target.parentElement);
       const id = event.target.parentElement.id;
       const name = form.category.value;
       const payload = {
@@ -121,9 +125,9 @@ export default {
         name: this.category_name,
         headers: {
           "Content-Type": "application/json",
-          Accept: "application/json",
+          "Accept": "application/json",
           "Access-Control-Allow-Origin": "*",
-          Authorization: "Bearer " + this.$store.state.auth.auth.token,
+          "Authorization": "Bearer " + this.$store.state.auth.auth.token,
         },
       };
 
@@ -144,3 +148,31 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+.main-section {
+    padding-left: 20px;
+    padding-top: 20px
+}
+
+.add-category {
+  padding: 10px;
+}
+
+.name-input {
+  border-radius: 10px;
+  padding: 5px;
+}
+
+.button {
+  border-radius: 10px;
+  padding: 5px;
+  cursor: pointer;
+  margin-left: 8px;
+  margin-right: 8px;
+}
+
+.category-section {
+  padding-top: 15px;
+}
+</style>
