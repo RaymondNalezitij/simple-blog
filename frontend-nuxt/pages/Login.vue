@@ -27,10 +27,9 @@
 
 <script>
 import axios from 'axios';
-import Dashboard from './admin/Dashboard.vue';
 
 export default {
-  components: { Dashboard },
+
   data() {
     return {
       validationErrors: null,
@@ -68,7 +67,7 @@ export default {
   flex-direction: column;
   padding-left: 20px;
   padding-top: 10;
-  width: 250px;
+  width: 330px;
 }
 
 .input-section {

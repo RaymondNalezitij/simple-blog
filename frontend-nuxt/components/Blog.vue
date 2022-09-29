@@ -24,8 +24,6 @@
     </form>
     
 
-
-
     <div class="sub-section">
 
     <div class="article">
@@ -50,7 +48,6 @@
 import axios from 'axios';
 import Title from './Title';
 
-
 export default {
     components: { Title },
     name: 'Blog',
@@ -66,6 +63,7 @@ export default {
     },
 
     async created() {
+
         const payload = {
             headers: {
                 'Content-Type': 'application/json',
@@ -75,7 +73,7 @@ export default {
         }
 
         try {
-            const res = await axios.get('http://127.0.0.1:8000/api/articles', payload);
+            const res = await axios.get(this.$config.BACKEND_URI + '/articles', payload);
             this.articles = res.data.data;
             for (const article of this.articles) {
                 article.date = this.convertDateTime(article.date);
@@ -86,7 +84,7 @@ export default {
         }
 
         try {
-            const res = await axios.get('http://127.0.0.1:8000/api/categories', payload);
+            const res = await axios.get(this.$config.BACKEND_URI + '/categories', payload);
             this.categories = res.data.data;
 
         } catch (error) {
@@ -143,7 +141,7 @@ export default {
             }
 
             try {
-                await axios.post('http://127.0.0.1:8000/api/articles', payload);
+                await axios.post(this.$config.BACKEND_URI + '/articles', payload);
 
                 this.$refs.formName.reset();
 

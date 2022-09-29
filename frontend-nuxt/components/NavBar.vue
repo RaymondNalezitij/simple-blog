@@ -9,11 +9,17 @@
 
         <div class="side-links" v-if="this.$store.state.auth.auth">
             <div class="admin-items" v-if="this.$store.state.auth.auth.type == 'Admin'">
+                
                 <nuxt-link class="menu-item" :to="'/admin/UserList'" >
                     Users
                 </nuxt-link>
+                
                 <nuxt-link class="menu-item" :to="'/admin/CategoryList'" >
                     Categories
+                </nuxt-link>
+                
+                <nuxt-link class="menu-item" :to="'/admin/CommentList'" >
+                    Comments
                 </nuxt-link>
             </div>
         <div class="menu-item" v-if="this.$store.state.auth.auth">

@@ -39,7 +39,7 @@ and navigate to the address `http://localhost:3000/`.
 
 ## Setup for production version
 For production version you must edit backend's `.env` file. Uncomment and put your data:
-```bash
+```dosini
 DB_CONNECTION=<your-db-server>
 DB_HOST=127.0.0.1
 DB_PORT=3306

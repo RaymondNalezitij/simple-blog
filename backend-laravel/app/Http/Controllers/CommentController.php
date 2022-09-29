@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Resources\CommentResource;
+use App\Models\Article;
 use App\Models\Comment;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -22,6 +23,16 @@ class CommentController extends Controller
 
     public function create(Request $request, int $article_id)
     {
+        if (!Article::find($article_id)) {
+
+            return response()->json([
+                'message' => 'Invalid post!',
+                'errors' => [
+                    'message' => 'Invalid post!'
+                ]
+            ], 404);
+        }
+
         $this->validate($request, [
             'user_name' => 'required',
             'comment' => 'required',
