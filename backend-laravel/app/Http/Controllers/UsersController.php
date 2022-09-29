@@ -14,6 +14,11 @@ class UsersController extends Controller
         return UserResource::collection(User::all());
     }
 
+    public function show(int $id)
+    {
+        return new UserResource(User::findOrFail($id));
+    }
+
     public function create(Request $request)
     {
         $this->validate($request, [

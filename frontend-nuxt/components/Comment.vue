@@ -76,6 +76,7 @@ export default {
           this.validationErrors = error.response.data.errors;
         }
         console.log("TERRIBLE ERROR:", error);
+        return;
       }
 
       this.isClosed = true;
@@ -110,6 +111,7 @@ export default {
 }
 
 .remove-button {
-  color: red
+  color: red;
+  border-radius: 10px;
 }
 </style>

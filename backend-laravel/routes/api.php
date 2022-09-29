@@ -16,8 +16,9 @@ use Illuminate\Support\Facades\Route;
 
 Route::middleware(['cors'])->post('/login', [App\Http\Controllers\Auth\AuthenticatedSessionController::class, 'store']);
 
-Route::middleware(['cors', 'auth:sanctum', 'isAdmin'])->get('/admin', [App\Http\Controllers\AdminController::class, 'index']);
+
 Route::middleware(['cors', 'auth:sanctum', 'isAdmin'])->get('/admin/users', [App\Http\Controllers\UsersController::class, 'index']);
+Route::middleware(['cors', 'auth:sanctum', 'isAdmin'])->get('/admin/users/{id}', [App\Http\Controllers\UsersController::class, 'show']);
 Route::middleware(['cors', 'auth:sanctum', 'isAdmin'])->post('/admin/users/', [App\Http\Controllers\UsersController::class, 'create']);
 Route::middleware(['cors', 'auth:sanctum', 'isAdmin'])->put('/admin/users/{id}', [App\Http\Controllers\UsersController::class, 'update']);
 Route::middleware(['cors', 'auth:sanctum', 'isAdmin'])->delete('/admin/users/{id}', [App\Http\Controllers\UsersController::class, 'destroy']);
