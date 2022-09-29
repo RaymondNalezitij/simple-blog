@@ -26,11 +26,11 @@ php artisan migrate
 php artisan app:first-run
 ```
 
-The `app:first-run` command will make first admin user (with password 'admin') and basic categories.
+The `app:first-run` command will make first admin user (with password `admin`, and login name `admin@host.com`) and basic categories.
 You can add aditional admin users with command `php artisan add:admin <user_name> <email> <password>`
 and regular users with `php artisan add:user <user_name> <email> <password>`.
 You can easily populate database with fake users and fake posts - `php artisan bd:seed`.
-All fake user's password is 'password'.
+All fake user's password is `password`.
 
 To start backend server enter the command `php artisan serve`.
 
@@ -46,4 +46,15 @@ DB_PORT=3306
 DB_DATABASE=<your-db-name>
 DB_USERNAME=<your-db-user-name>
 DB_PASSWORD=<your-password>
+```
+
+## Usage
+Run servers:
+In `backend-laravel` directory:
+```bash
+php artisan serve
+```
+In `frontend-nuxt` directory:
+```bash
+npm run start
 ```

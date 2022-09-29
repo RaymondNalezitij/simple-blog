@@ -79,7 +79,6 @@ export default {
       if (error.response) {
         this.validationErrors = error.response.data.errors;
       }
-      console.log("TERRIBLE ERROR:", error);
     }
   },
 
@@ -103,11 +102,11 @@ export default {
         );
         alert("Successfully Changed!");
       } catch (error) {
+        alert("Not Changed!");
         if (error.response) {
-          alert("Not Changed!");
+          
           this.validationErrors = error.response.data.errors;
         }
-        console.log("TERRIBLE ERROR:", error);
       }
     },
   },

@@ -116,7 +116,7 @@ export default {
 
         this.fetchCategories();
       } catch (error) {
-        console.log("TERRIBLE ERROR:", error);
+        alert("Not Changed");
       }
     },
 
@@ -137,7 +137,7 @@ export default {
           payload
         );
       } catch (error) {
-        console.log("TERRIBLE ERROR:", error);
+        alert("Not Added!");
         return;
       }
 
